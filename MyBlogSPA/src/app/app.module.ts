@@ -6,11 +6,16 @@ import { ValueComponent } from './value/value.component';
 import { NavBarComponent } from './navBar/navBar.component';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../_Services/auth.service';
+import { RegisterComponent } from './register/register.component';
+import { HomeComponent } from './home/home.component';
+
 @NgModule({
    declarations: [
       AppComponent,
       ValueComponent,
-      NavBarComponent
+      NavBarComponent,
+      RegisterComponent,
+      HomeComponent
    ],
    imports: [
       BrowserModule,

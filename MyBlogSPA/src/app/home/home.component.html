@@ -1,0 +1,14 @@
+<div class="container mt-5">
+
+  <div *ngIf="!hideRegisterForm" class="register" style="text-align: center;">
+    <button class="btn btn-primary mr-2" type="register" (click)="registerFormToggle()">Register</button>
+    <button class="btn btn-info" type="register" >Learn More</button>
+  </div>
+
+  <div *ngIf="hideRegisterForm" class="container">
+    <div class="col-4">
+      <app-register (regUserStatus)="regUserStatus($event)"></app-register>
+    </div>
+  </div>
+
+</div>

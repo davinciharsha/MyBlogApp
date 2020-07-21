@@ -9,16 +9,28 @@ import { map } from 'rxjs/operators';
 export class AuthService {
 
 constructor(private http: HttpClient) { }
-loginBaseUrl = 'http://localhost:5000/api/auth/';
+authBaseUrl = 'http://localhost:5000/api/auth/';
 
 // tslint:disable-next-line: typedef
 userLogin(userLoginModel: any){
-  return this.http.post(this.loginBaseUrl + 'login', userLoginModel)
+  return this.http.post(this.authBaseUrl + 'login', userLoginModel)
   .pipe(map((response: any) => {
       const user = response;
+      console.log('user ', user);
       if (user){
-        localStorage.setItem('token :', user.token);
+        console.log(user.token);
+        localStorage.setItem('token', user.token);
       }
+    })
+  );
+}
+
+// tslint:disable-next-line: typedef
+userRegister(userRegisterModel: any){
+  return this.http.post(this.authBaseUrl + 'register', userRegisterModel)
+  .pipe(map((response: any) => {
+      const user = response;
+      console.log('user register', user);
     })
   );
 }
