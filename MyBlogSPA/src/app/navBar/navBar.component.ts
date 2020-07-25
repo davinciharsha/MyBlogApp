@@ -22,7 +22,7 @@ export class NavBarComponent implements OnInit {
       console.log('successfully');
       // this.loggedIn();
     }, error => {
-      console.log('error');
+      console.log('error', error);
     });
   }
 
