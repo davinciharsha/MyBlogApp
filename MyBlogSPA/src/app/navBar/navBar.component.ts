@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '_Services/auth.service';
+import { AlertifyService } from '_Services/alertify.service';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -10,7 +11,7 @@ import { AuthService } from '_Services/auth.service';
 
 export class NavBarComponent implements OnInit {
   userLoginModel: any = {};
-  constructor(private authService: AuthService) { }
+  constructor(public authService: AuthService, private alertify: AlertifyService) { }
 
   ngOnInit(): void {
     // this.userLogin();
@@ -18,23 +19,26 @@ export class NavBarComponent implements OnInit {
 
   userLogin(): void {
     console.log('user login model : ', this.userLoginModel);
-    this.authService.userLogin(this.userLoginModel).subscribe(next => {
-      console.log('successfully');
-      // this.loggedIn();
-    }, error => {
-      console.log('error', error);
-    });
-  }
-
-  loggedIn(): boolean{
-    const token = localStorage.getItem('token');
-    console.log('token :', token);
-    if (token){
-      return !!token;
+    if (this.userLoginModel.username && this.userLoginModel.password) {
+      this.authService.userLogin(this.userLoginModel).subscribe(next => {
+        console.log('successfully');
+        this.alertify.success('Login Successful');
+        // this.loggedIn();
+      }, error => {
+        console.log('error', error);
+      });
+    } else {
+      this.alertify.warning('Enter valid user credentials');
     }
   }
 
-  logOut(): void{
+  loggedIn(): boolean {
+    return this.authService.loggedIn();
+  }
+
+  logOut(): void {
     localStorage.removeItem('token');
+    this.userLoginModel = {};
+    this.alertify.warning('Logout successful');
   }
 }

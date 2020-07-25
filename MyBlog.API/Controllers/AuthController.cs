@@ -48,7 +48,7 @@ namespace MyBlog.API.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginUserDTO loginUserDto)
         {
-            var currentUser = await _repo.LoginUser(loginUserDto.UserName, loginUserDto.Password);
+            var currentUser = await _repo.LoginUser(loginUserDto.UserName.ToLower(), loginUserDto.Password);
             if (currentUser == null)
             {
                 return Unauthorized();

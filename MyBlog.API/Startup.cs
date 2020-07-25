@@ -65,7 +65,7 @@ namespace MyBlog.API
                         var error = context.Features.Get<IExceptionHandlerFeature>();
                         if(error != null){
                             context.Response.AddApplicationError(error.Error.Message);
-                            // await context.Response.WriteAsync(error.Error.Message);
+                            await context.Response.WriteAsync(error.Error.Message);
                         }
                     });
                 });
