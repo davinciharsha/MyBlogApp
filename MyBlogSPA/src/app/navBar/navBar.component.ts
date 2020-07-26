@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '_Services/auth.service';
 import { AlertifyService } from '_Services/alertify.service';
+import { Router } from '@angular/router';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -11,7 +12,7 @@ import { AlertifyService } from '_Services/alertify.service';
 
 export class NavBarComponent implements OnInit {
   userLoginModel: any = {};
-  constructor(public authService: AuthService, private alertify: AlertifyService) { }
+  constructor(public authService: AuthService, private alertify: AlertifyService, private router: Router) { }
 
   ngOnInit(): void {
     // this.userLogin();
@@ -22,6 +23,7 @@ export class NavBarComponent implements OnInit {
     if (this.userLoginModel.username && this.userLoginModel.password) {
       this.authService.userLogin(this.userLoginModel).subscribe(next => {
         console.log('successfully');
+        this.router.navigate(['/members']);
         this.alertify.success('Login Successful');
         // this.loggedIn();
       }, error => {
@@ -39,6 +41,7 @@ export class NavBarComponent implements OnInit {
   logOut(): void {
     localStorage.removeItem('token');
     this.userLoginModel = {};
+    this.router.navigate(['/home']);
     this.alertify.warning('Logout successful');
   }
 }
