@@ -14,10 +14,22 @@ import { AlertifyService } from '../../_Services/alertify.service';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ListComponent } from './list/list.component';
-import { MembersComponent } from './members/members.component';
+import { MembersComponent } from '../app/mem/members/members.component';
 import { MessagesComponent } from './messages/messages.component';
+import { MemberCardComponent } from './mem/member-card/member-card.component';
+import { MemberDetailComponent } from './mem/member-detail/member-detail.component';
+import { MemberDetailResolver } from '../_resolvers/member-detail.resolver';
+import { MemberListResolver } from '../_resolvers/member-list.resolver';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from '../app/routes';
+import { JwtModule } from '@auth0/angular-jwt';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+
+// tslint:disable-next-line: typedef
+export function tokenGetter() {
+   return localStorage.getItem('token');
+}
 
 @NgModule({
    declarations: [
@@ -28,20 +40,33 @@ import { appRoutes } from '../app/routes';
       HomeComponent,
       ListComponent,
       MembersComponent,
-      MessagesComponent
+      MessagesComponent,
+      MemberCardComponent,
+      MemberDetailComponent
    ],
    imports: [
       BrowserModule,
       HttpClientModule,
       FormsModule,
+      NgxGalleryModule,
+      TabsModule.forRoot(),
       BrowserAnimationsModule,
       BsDropdownModule.forRoot(),
-      RouterModule.forRoot(appRoutes)
+      RouterModule.forRoot(appRoutes),
+      JwtModule.forRoot({
+         config: {
+            // tslint:disable-next-line: object-literal-shorthand
+            tokenGetter: tokenGetter,
+            allowedDomains: ['localhost:5000']
+         }
+      })
    ],
    providers: [
       AuthService,
       ErrorInterceptorProvider,
-      AlertifyService
+      AlertifyService,
+      MemberDetailResolver,
+      MemberListResolver
    ],
    bootstrap: [
       AppComponent
