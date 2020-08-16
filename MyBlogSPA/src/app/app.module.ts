@@ -18,8 +18,11 @@ import { MembersComponent } from '../app/mem/members/members.component';
 import { MessagesComponent } from './messages/messages.component';
 import { MemberCardComponent } from './mem/member-card/member-card.component';
 import { MemberDetailComponent } from './mem/member-detail/member-detail.component';
+import { MemberEditComponent } from './mem/member-edit/member-edit.component';
 import { MemberDetailResolver } from '../_resolvers/member-detail.resolver';
 import { MemberListResolver } from '../_resolvers/member-list.resolver';
+import { MemberEditResolver } from '../_resolvers/member-edit.resolver';
+import { PreventLosingUnsaved } from '../_guards/preventLosingUnsaved';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from '../app/routes';
 import { JwtModule } from '@auth0/angular-jwt';
@@ -42,7 +45,8 @@ export function tokenGetter() {
       MembersComponent,
       MessagesComponent,
       MemberCardComponent,
-      MemberDetailComponent
+      MemberDetailComponent,
+      MemberEditComponent
    ],
    imports: [
       BrowserModule,
@@ -66,7 +70,9 @@ export function tokenGetter() {
       ErrorInterceptorProvider,
       AlertifyService,
       MemberDetailResolver,
-      MemberListResolver
+      MemberListResolver,
+      MemberEditResolver,
+      PreventLosingUnsaved
    ],
    bootstrap: [
       AppComponent

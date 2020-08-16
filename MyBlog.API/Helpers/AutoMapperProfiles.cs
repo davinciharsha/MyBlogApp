@@ -20,6 +20,7 @@ namespace MyBlog.API.Helpers
                 .ForMember(dest => dest.Age,
                 opt => opt.MapFrom(src => src.DateOfBirth.CalculateAge()));
             CreateMap<Photo, PhotosForDetailDTO>();
+            CreateMap<EditUserDTO, User>();
         }
     }
 }
