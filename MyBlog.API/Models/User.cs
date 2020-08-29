@@ -34,5 +34,7 @@ namespace MyBlog.API.Models
         public string Country { get; set; }
 
         public ICollection<Photo> Photos { get; set; }
+
+        public string PublicId { get; set; }
     }
 }

@@ -21,6 +21,8 @@ namespace MyBlog.API.Helpers
                 opt => opt.MapFrom(src => src.DateOfBirth.CalculateAge()));
             CreateMap<Photo, PhotosForDetailDTO>();
             CreateMap<EditUserDTO, User>();
+            CreateMap<Photo, PhotoForReturnDto>();
+            CreateMap<PhotoForCreationDto, Photo>();
         }
     }
 }
