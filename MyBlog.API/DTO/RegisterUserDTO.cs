@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace MyBlog.API.DTO
@@ -8,6 +9,32 @@ namespace MyBlog.API.DTO
         public string UserName { get; set; }
 
         [Required]
+        [StringLength(8, MinimumLength = 4, ErrorMessage = "Password should be between 4 to 8 characters")]
         public string Password { get; set; }
+
+        [Required]
+        public string Gender { get; set; }
+        
+        [Required]
+        public string KnownAs { get; set; }
+        
+        [Required]
+        public DateTime DateOfBirth { get; set; }
+        
+        [Required]
+        public string City { get; set; }
+        
+        [Required]
+        public string Country { get; set; }
+        
+        public DateTime CreatedDateTime { get; set; }
+        
+        public DateTime LastActive { get; set; }
+
+        public RegisterUserDTO()
+        {
+            CreatedDateTime = DateTime.Now;
+            LastActive = DateTime.Now;
+        }
     }
 }

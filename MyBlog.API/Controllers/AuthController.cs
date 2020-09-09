@@ -39,12 +39,10 @@ namespace MyBlog.API.Controllers
             }
             else
             {
-                var registerUserObject = new User
-                {
-                    UserName = registerUserDto.UserName
-                };
-                var createdUser = await _repo.RegisterUser(registerUserObject, registerUserDto.Password);
-                return StatusCode(201);
+                var userToCreate = _mapper.Map<User>(registerUserDto);
+                var createdUser = await _repo.RegisterUser(userToCreate, registerUserDto.Password);
+                var userToReturn = _mapper.Map<UserForDetailDTO>(createdUser);
+                return CreatedAtRoute("GetUser", new { Controller = "Users", createdUser.Id }, userToReturn);
             }
         }
 

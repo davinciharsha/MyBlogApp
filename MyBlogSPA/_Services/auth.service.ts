@@ -41,7 +41,7 @@ export class AuthService {
       );
   }
 
-  userRegister(userRegisterModel: any): any {
+  userRegister(userRegisterModel: User): any {
     return this.http.post(this.authBaseUrl + 'register', userRegisterModel)
       .pipe(map((response: any) => {
         const user = response;
