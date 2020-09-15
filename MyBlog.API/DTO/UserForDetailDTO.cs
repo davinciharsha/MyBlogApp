@@ -16,7 +16,7 @@ namespace MyBlog.API.DTO
 
         public string KnownAs { get; set; }
 
-        public DateTime CreatedOn { get; set; }
+        public DateTime CreatedDateTime { get; set; }
 
         public DateTime LastActive { get; set; }
 
