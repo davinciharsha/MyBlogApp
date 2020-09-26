@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyBlog.API.Data;
 using MyBlog.API.DTO;
 using MyBlog.API.Helpers;
+using MyBlog.API.Models;
 
 namespace MyBlog.API.Controllers
 {
@@ -68,5 +69,34 @@ namespace MyBlog.API.Controllers
             throw new Exception($"failed to update user id {id}");
 
         }
+
+        [HttpPost("{userId}/like/{recepientId}")]
+        public async Task<IActionResult> LikeUser(int userId, int recepientId)
+        {
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            var liked = await _repo.GetLike(userId, recepientId);
+
+            if(liked != null)
+                return BadRequest("You already liked this user");
+
+            if(await _repo.GetUser(recepientId) == null)
+                return NotFound();
+
+            var like = new Like
+            {
+                LikerId = userId,
+                LikeeId = recepientId
+            };
+
+            _repo.Add<Like>(like);
+
+            if(await _repo.SaveAll())
+                return Ok();
+
+            return BadRequest("Failed to like user");
+        }
+
     }
 }

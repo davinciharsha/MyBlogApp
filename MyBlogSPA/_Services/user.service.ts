@@ -14,7 +14,7 @@ export class UserService {
   constructor(private http: HttpClient, private authService: AuthService) { }
   userBaseUrl = environment.apiUrl + 'users/';
 
-  getUsers(pageNumber?, pageSize?, userParams?): Observable<PagedListResult<User[]>> {
+  getUsers(pageNumber?, pageSize?, userParams?, likesParam?): Observable<PagedListResult<User[]>> {
     const pagedListResult: PagedListResult<User[]> = new PagedListResult<User[]>();
 
     let params = new HttpParams();
@@ -28,6 +28,14 @@ export class UserService {
       params = params.append('maxAge', userParams.maxAge);
       params = params.append('gender', userParams.gender);
       params = params.append('orderBy', userParams.orderBy);
+    }
+
+    if (likesParam === 'Likers') {
+      params = params.append('likers', 'true');
+    }
+
+    if (likesParam === 'Likees') {
+      params = params.append('likees', 'true');
     }
 
     return this.http.get<User[]>(this.userBaseUrl, { observe: 'response', params }).pipe(
@@ -56,5 +64,9 @@ export class UserService {
   }
   deletePhoto(userId: number, id: number): any {
     return this.http.delete(this.userBaseUrl + this.authService.decodedToken.nameid + '/photos/' + id);
+  }
+
+  sendLike(userId: number, recepientId: number): any {
+    return this.http.post(this.userBaseUrl + userId + '/like/' + recepientId, {});
   }
 }

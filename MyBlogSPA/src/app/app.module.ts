@@ -31,6 +31,7 @@ import { PhotoEditorComponent } from './mem/photo-editor/photo-editor.component'
 import { MemberDetailResolver } from '../_resolvers/member-detail.resolver';
 import { MemberListResolver } from '../_resolvers/member-list.resolver';
 import { MemberEditResolver } from '../_resolvers/member-edit.resolver';
+import { ListResolver } from '../_resolvers/list.resolver';
 import { PreventLosingUnsaved } from '../_guards/preventLosingUnsaved';
 import { appRoutes } from '../app/routes';
 import { TabsModule } from 'ngx-bootstrap/tabs';
@@ -85,6 +86,7 @@ export function tokenGetter() {
       MemberDetailResolver,
       MemberListResolver,
       MemberEditResolver,
+      ListResolver,
       PreventLosingUnsaved
    ],
    bootstrap: [
